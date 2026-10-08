@@ -33,5 +33,5 @@ app.get('*', (req, res) => {
 
 // Start Server
 app.listen(CONFIG.PORT, '0.0.0.0', () => {
-  console.log(`🚀 Stream Hub Server running at: http://127.0.0.1:${CONFIG.PORT}`);
+  console.log(`🚀 Stream Hub Server running on port ${CONFIG.PORT} (bind: 0.0.0.0)`);
 });
