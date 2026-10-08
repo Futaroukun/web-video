@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Nonton Video • StreamHub</title>
+  
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js"></script>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <a href="/" id="watchBrandBtn" class="brand">
+        <span class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </span>
+        <span class="brand-name">Stream<span class="accent-text">Hub</span></span>
+      </a>
+      <div class="shield-badge">
+        <span id="watchModeLabel">Direct Stream</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Watch Page Content -->
+  <main class="watch-page-container">
+    <!-- Top Back Navigation -->
+    <div class="watch-top-nav">
+      <a href="/" id="watchBackBtn" class="home-link-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        <span>Kembali</span>
+      </a>
+      <button id="closeTabBtn" class="home-link-btn">
+        <span>Tutup Tab ✕</span>
+      </button>
+    </div>
+
+    <!-- Player Screen Area -->
+    <div class="player-wrapper">
+      <div class="player-container" id="playerContainer">
+        <video id="hlsVideoPlayer" controls playsinline preload="metadata"></video>
+        <iframe id="sandboxIframe" style="display: none;" frameborder="0" scrolling="no" allowfullscreen allow="autoplay; fullscreen; encrypted-media; picture-in-picture" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"></iframe>
+        <div class="player-loader" id="playerLoader">
+          <div class="spinner"></div>
+          <span>Menyiapkan Stream...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alert for External Server -->
+    <div id="sandboxAlert" class="sandbox-alert" style="display: none;">
+      <span>Server luar. Jika terdapat tombol iklan yang menutupi video, kembali ke <strong>Server 1 (Direct HD)</strong> untuk pemutaran bersih.</span>
+    </div>
+
+    <!-- Server Controls -->
+    <div class="server-control-bar">
+      <span class="server-title">Server:</span>
+      <div class="server-list" id="serverList"></div>
+    </div>
+
+    <!-- Video Metadata Box -->
+    <div class="video-metadata-box">
+      <div class="meta-title-row">
+        <h1 id="watchVideoTitle" class="watch-title">Memuat...</h1>
+      </div>
+
+      <div class="meta-actions">
+        <button id="modalFavBtn" class="btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span id="favBtnLabel">Favorit</span>
+        </button>
+        <button id="copyStreamBtn" class="btn-secondary" title="Salin URL Stream">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span>Salin Link</span>
+        </button>
+        <a id="downloadVideoBtn" class="btn-secondary" title="Unduh Video Langsung" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span id="downloadBtnText">Unduh MP4</span>
+        </a>
+        <span class="status-indicator">
+          <span class="status-dot"></span> <span id="streamStatusText">Direct HLS</span>
+        </span>
+      </div>
+
+      <div class="tags-container" id="modalGenres"></div>
+
+      <div class="synopsis-box">
+        <h4>Deskripsi</h4>
+        <p id="modalSynopsis">-</p>
+      </div>
+
+      <div class="credits-grid">
+        <div class="credit-item">
+          <span class="credit-label">Pemeran:</span>
+          <span class="credit-value" id="modalCast">-</span>
+        </div>
+        <div class="credit-item">
+          <span class="credit-label">Sutradara:</span>
+          <span class="credit-value" id="modalDirector">-</span>
+        </div>
+        <div class="credit-item">
+          <span class="credit-label">Rilis / Negara:</span>
+          <span class="credit-value" id="modalOrigin">-</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="toastContainer" class="toast-container"></div>
+  <script type="module" src="/js/watch.js"></script>
+</body>
+</html>
